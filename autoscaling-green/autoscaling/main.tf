@@ -1,3 +1,9 @@
+
+#---------------------------------------------#
+# Author: Adam WezvaTechnologies
+# Call/Whatsapp: +91-9739110917
+#---------------------------------------------#
+
 data "aws_availability_zones" "all" {}
 
 
@@ -61,3 +67,7 @@ resource "aws_autoscaling_policy" "demo" {
   }
 }
 
+#---------------------------------------------#
+# Author: Adam WezvaTechnologies
+# Call/Whatsapp: +91-9739110917
+#---------------------------------------------#
