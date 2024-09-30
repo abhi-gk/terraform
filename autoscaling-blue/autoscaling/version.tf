@@ -1,3 +1,9 @@
+
+#---------------------------------------------#
+# Author: Adam WezvaTechnologies
+# Call/Whatsapp: +91-9739110917
+#---------------------------------------------#
+
 # Terraform version
 terraform {
   required_version = ">= 1.6.6"
@@ -9,3 +15,8 @@ terraform {
     }
   }
 }
+
+#---------------------------------------------#
+# Author: Adam WezvaTechnologies
+# Call/Whatsapp: +91-9739110917
+#---------------------------------------------#
