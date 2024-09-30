@@ -114,3 +114,8 @@ backup_jobs() {
   echo "Successfully backedup Jenkins home dir ..."
 
   exit 0
+
+#---------------------------------------------#
+# Author: Adam WezvaTechnologies
+# Call/Whatsapp: +91-9739110917
+#---------------------------------------------# 
