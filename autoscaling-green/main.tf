@@ -1,3 +1,9 @@
+
+#---------------------------------------------#
+# Author: Adam WezvaTechnologies
+# Call/Whatsapp: +91-9739110917
+#---------------------------------------------#
+
 provider "aws" {
   region = "ap-south-1"
 }
@@ -29,3 +35,8 @@ module "autoscaling" {
   user_data         = base64encode(local.user_data)
   security_groups   = ["sg-024da43ccf9b0816d"]
 }
+
+#---------------------------------------------#
+# Author: Adam WezvaTechnologies
+# Call/Whatsapp: +91-9739110917
+#---------------------------------------------#
