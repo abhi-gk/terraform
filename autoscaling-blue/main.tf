@@ -8,14 +8,6 @@ provider "aws" {
   region = "ap-south-1"
 }
 
-locals {
-  user_data = <<-EOT
-    #!/bin/bash
-    echo '<html><body><h1 style="font-size:50px;color:blue;">WEZVA TECHNOLOGIES (ADAM) <br> <font style="color:red;"> www.wezva.com <br> <font style="color:green;"> +91-9739110917 </h1> </body></html>' > index.html
-    nohup busybox httpd -f -p 8080 &
-  EOT
-}
-
 module "autoscaling" {
   source = "./autoscaling"
   name = "asg-blue"
@@ -32,7 +24,6 @@ module "autoscaling" {
   image_id          = "ami-0a7cf821b91bcccbc"
   key_name          = "jan24master"
   instance_type     = "t3.micro"
-  user_data         = base64encode(local.user_data)
   security_groups   = ["sg-024da43ccf9b0816d"]
 }
 
