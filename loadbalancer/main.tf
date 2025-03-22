@@ -9,7 +9,7 @@ provider "aws" {
 
 module "elb" {
   source = "./loadbalancer"
-  vpc_id = "vpc-08b3ea433e2014c6a"
+  vpc_id = "vpc-01cb1bc7e3d81f545"
   internal        = false
 
   sg_public_ingress = [
@@ -22,7 +22,7 @@ module "elb" {
 
   sg_public_egress  =  [443,8080]
 
-  subnets         = ["subnet-0b134c01fd2ce1ece", "subnet-0e15e72c9967f4bd1","subnet-0e56ccfe47eb41d47"]
+  subnets         = ["subnet-0213e27a9c4333d5c", "subnet-0aa98230ab963bdc8","subnet-03042d2319cd3310c"]
 
   listener = [
     {
