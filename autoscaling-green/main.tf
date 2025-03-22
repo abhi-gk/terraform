@@ -12,7 +12,7 @@ module "autoscaling" {
   source = "./autoscaling"
   name = "asg-green"
   create_launch_template = true
-  vpc_zone_identifier       = ["subnet-0b134c01fd2ce1ece", "subnet-0e15e72c9967f4bd1","subnet-0e56ccfe47eb41d47"]
+  vpc_zone_identifier       = ["subnet-0213e27a9c4333d5c", "subnet-0aa98230ab963bdc8","subnet-03042d2319cd3310c"]
   load_balancers            = ["wezvatech"]
   min_size                  = 1
   max_size                  = 2
@@ -20,11 +20,11 @@ module "autoscaling" {
   health_check_type         = "EC2"
   health_check_grace_period = 30
 
-  launch_template_name        = "lt-green"
-  image_id          = "ami-0a7cf821b91bcccbc"
-  key_name          = "jan24master"
+  launch_template_name        = "lt-blue"
+  image_id          = "ami-0e35ddab05955cf57"
+  key_name          = "wezvatech2025"
   instance_type     = "t3.micro"
-  security_groups   = ["sg-024da43ccf9b0816d"]
+  security_groups   = ["sg-0fed46a4bd7b55975"]
 }
 
 #---------------------------------------------#
