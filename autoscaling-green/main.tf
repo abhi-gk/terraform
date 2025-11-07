@@ -22,7 +22,7 @@ module "autoscaling" {
 
   launch_template_name        = "lt-green"
   image_id          = "ami-0836ed1f613068bd6"
-  key_name          = "wezvatech2025"
+  key_name          = "wezva2025"
   instance_type     = "t3.micro"
   security_groups   = ["sg-0a781bd43a7ce089e"]
 }
