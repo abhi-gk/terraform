@@ -9,11 +9,11 @@ provider "aws" {
 }
 
 variable "default_vpc_id" {
- default = "vpc-0e53618e41f946146"
+ default = "vpc-0574a0a509838cd31"
 }
 
 variable "default_subnet_id" {
- default = ["subnet-034ae6bc268a8a248", "subnet-0d4876621a535c5f1", "subnet-06ae91a8b23fe0ce6"]
+ default = ["subnet-08e8146d5754843f7", "subnet-0085f77c1a13eb36c", "subnet-0ad5ec3834e796e0d"]
 }
 
 resource "aws_efs_file_system" "wezvatech" {
