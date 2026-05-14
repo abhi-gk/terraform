@@ -1,5 +1,5 @@
 variable "amiid" {
-  default = "ami-08e5424edfe926b43"
+  default = "ami-07a00cf47dbbc844c"
 }
 
 variable "type" {
@@ -7,7 +7,7 @@ variable "type" {
 }
 
 variable "pemfile" { 
-  default = "master"
+  default = "wezva2026"
 }
 
 variable "volsize" {

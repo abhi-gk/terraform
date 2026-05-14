@@ -18,7 +18,7 @@ variable "myhosts" {
 }
 
 variable "mykey" { 
-  default = "wezva2025"
+  default = "wezva2026"
 }
 
 module "server" {

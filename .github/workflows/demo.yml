@@ -1,10 +1,10 @@
-name: efs Pipeline
+name: demo Pipeline
 
 on:
   push:
     paths:
-      - 'efs/**'
-      - '.github/workflows/efs.yml'
+      - 'demo/**'
+      - '.github/workflows/demo.yml'
     branches:
       - main
 
@@ -14,11 +14,11 @@ jobs:
 
     defaults:
       run: 
-        working-directory: efs
+        working-directory: demo
 
     steps:
       # -------------------
-      # EFS Provision
+      # demo Provision
       # -------------------
       - name: Checkout
         uses: actions/checkout@v4
