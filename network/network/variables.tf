@@ -97,6 +97,21 @@ variable "external_nat_ip_ids" {
   default     = []
 }
 
+variable "vpc_endpoints" {
+  description = "Map of VPC endpoints to create"
+  type = map(object({
+    service      = string
+    type         = string # "Interface" or "Gateway"
+    private_dns  = optional(bool, true)
+  }))
+  default = {}
+}
+
+variable "vpc_name" {
+  type        = string
+  description = "The name of the VPC (e.g., edge, app, data, ops)"
+}
+
 #---------------------------------------------#
 # Author: Adam WezvaTechnologies
 # Call/Whatsapp: +91-9739110917

@@ -12,9 +12,11 @@ resource "aws_vpc" "my_vpc" {
   enable_dns_hostnames = true
 
   tags = merge(
-    { "Name" = var.name
-      "project" = var.vpc_tags
-	}
+    {
+       Name        = "fintech-${var.vpc_name}-vpc"
+       Environment = "production"
+       Org         = "wezvatech" # Keep the org name here
+  }
   )
 }
 
@@ -47,9 +49,10 @@ resource "aws_subnet" "public_subnet" {
   availability_zone = data.aws_availability_zones.all.names[count.index]
 
   tags = merge(
-    { "Name" = var.name
+    { 
+      Name = "fintech-${var.vpc_name}-public-subnet-${count.index}"
       "project" = var.public_subnet_tags
-	}
+    }
   )
   
 }
@@ -72,8 +75,6 @@ resource "aws_route_table" "public" {
 resource "aws_route_table_association" "public" {
     count = length(var.public_subnets)
     subnet_id = element(aws_subnet.public_subnet.*.id, count.index)
-    #for_each = toset(var.public_subnets)
-    #subnet_id =  each.value
     route_table_id = aws_route_table.public[0].id
 }
 
@@ -132,12 +133,13 @@ resource "aws_subnet" "private_subnet" {
   count = length(var.private_subnets)
   vpc_id     = aws_vpc.my_vpc.id
   cidr_block = element(var.private_subnets, count.index)
-  availability_zone = data.aws_availability_zones.all.names[count.index]
+  availability_zone = data.aws_availability_zones.all.names[count.index % length(data.aws_availability_zones.all.names)]
 
   tags = merge(
-    { "Name" = var.name
+    { 
+      Name = "fintech-${var.vpc_name}-private-subnet-${count.index}"
       "project" = var.private_subnet_tags
-        }
+    }
   )
 }
 
@@ -235,6 +237,49 @@ resource "aws_route" "private_nat_gateway" {
     create = "5m"
   }
 }
+
+#-------------------------------------------
+# VPC ENDPOINTS (DYNAMICALY CREATED)
+#-------------------------------------------
+
+# Security group for Interface endpoints (Port 443)
+resource "aws_security_group" "endpoint_sg" {
+  count       = length([for e in var.vpc_endpoints : e if e.type == "Interface"]) > 0 ? 1 : 0
+  name        = "${var.name}-endpoint-sg"
+  vpc_id      = aws_vpc.my_vpc.id
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr]
+  }
+}
+
+resource "aws_vpc_endpoint" "demo" {
+  for_each          = var.vpc_endpoints
+  vpc_id            = aws_vpc.my_vpc.id
+  service_name      = "com.amazonaws.ap-south-1.${each.value.service}"
+  vpc_endpoint_type = each.value.type
+
+  # Interface-specific logic
+  security_group_ids  = each.value.type == "Interface" ? [aws_security_group.endpoint_sg[0].id] : null
+  subnet_ids = each.value.type == "Interface" ? slice(
+    aws_subnet.private_subnet[*].id, 
+    0, 
+    length(data.aws_availability_zones.all.names)
+  ) : null
+  #subnet_ids          = each.value.type == "Interface" ? aws_subnet.private_subnet[*].id : null
+  private_dns_enabled = each.value.type == "Interface" ? each.value.private_dns : null
+
+  # Gateway-specific logic (S3/DynamoDB)
+  route_table_ids = each.value.type == "Gateway" ? [aws_route_table.private[0].id] : null
+
+  tags = {
+    Name = "${var.name}-${each.key}-endpoint"
+  }
+}
+
 
 #---------------------------------------------#
 # Author: Adam WezvaTechnologies
