@@ -39,6 +39,15 @@ jobs:
       - name: terraform validate
         run: terraform validate
 
+      - name: Install Checkov
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install checkov
+
+      - name: Run Checkov Scan
+        continue-on-error: true
+        run: checkov -d .
+
       - name: terraform plan
         run: terraform plan
 
