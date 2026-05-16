@@ -12,8 +12,7 @@ provider "aws" {
 variable "myhosts" {
   type = map
   default = {
-    JenkinsMaster = "t2.micro"
-    JenkinsSlave01 = "t2.micro"
+    TESTMACHINE = "t2.micro"
   }
 }
 
